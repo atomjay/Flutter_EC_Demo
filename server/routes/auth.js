@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const express = require("express");
-=======
-const express = require("exrpess");
->>>>>>> 4a5d7faead749214c6017bcb71b4803e8567d92d
 const bcryptjs = require("bcryptjs");
 const User = require("../models/user");
 const authRouter = express.Router();
@@ -20,11 +16,7 @@ authRouter.post("/api/signup", async (req, res) => {
     }
 
     // 用戶密碼需加密
-<<<<<<< HEAD
     const hashPassword = await bcryptjs.hash(passsword, 8);
-=======
-    const hashPassword = await bcryptjs.hash(password, 8);
->>>>>>> 4a5d7faead749214c6017bcb71b4803e8567d92d
 
     let user = new User({
       email,

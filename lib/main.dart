@@ -1,5 +1,7 @@
+import 'package:ec/providers/user_provider.dart';
 import 'package:ec/router.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'constants/global_variables.dart';
 import 'features/auth/screens/auth_screen.dart';
 
