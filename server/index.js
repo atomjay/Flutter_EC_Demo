@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // import from other files
 const authRouter = require("./routes/auth");
@@ -7,8 +8,7 @@ const authRouter = require("./routes/auth");
 // init
 const PORT = 3000;
 const app = express();
-const DB =
-  "mongodb+srv://jay:hacker0307@cluster0.veor17f.mongodb.net/?retryWrites=true&w=majority";
+const DB = process.env.DB_HOST;
 
 //middleware
 // Clients -> middleware -> Server -> Clients
