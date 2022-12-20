@@ -75,7 +75,6 @@ class AuthService {
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           //將 jwt 的 token 存在全局變舉中
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          print(res.body);
           Navigator.pushNamedAndRemoveUntil(
             context,
             HomeScreen.routeName,
@@ -83,6 +82,46 @@ class AuthService {
           );
         },
       );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // get user data
+  void getUserData({
+    required BuildContext context,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-auth-token': token!
+        },
+      );
+
+      var response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        // get user data
+        http.Response userResponse = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-auth-token': token
+          },
+        );
+
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userResponse.body);
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
