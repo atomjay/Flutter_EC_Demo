@@ -1,4 +1,5 @@
 import 'package:ec/constants/global_variables.dart';
+import 'package:ec/features/account/widgets/single_product.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {
@@ -11,7 +12,10 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   //temp order list
   List list = [
-    'image':'https://www.pexels.com/zh-tw/photo/7948965/',
+    'https://images.pexels.com/photos/14683126/pexels-photo-14683126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/14683126/pexels-photo-14683126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/14683126/pexels-photo-14683126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/14683126/pexels-photo-14683126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,8 +50,13 @@ class _OrdersState extends State<Orders> {
             right: 0.0,
           ),
           child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, index) {},
+            scrollDirection: Axis.horizontal,
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return SingleProduct(
+                image: list[index],
+              );
+            },
           ),
         ),
       ],
