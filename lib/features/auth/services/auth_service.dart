@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ec/common/widgets/button_bar.dart';
 import 'package:ec/constants/error_handling.dart';
 import 'package:ec/constants/global_variables.dart';
 import 'package:ec/constants/utils.dart';
@@ -72,12 +73,16 @@ class AuthService {
         context: context,
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
+          // Consumer 當 notifyListeners 被調用的時候，並不會使 widget 被重構。
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           //將 jwt 的 token 存在全局變舉中
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          //彈出新路由之前，刪除路由棧中的所有路由，
+          //那可以使用這種寫法，(Route route) => false，
+          //這樣能保證把之前所有的路由都進行刪除，然後才push新的路由
           Navigator.pushNamedAndRemoveUntil(
             context,
-            HomeScreen.routeName,
+            BottomBar.routeName,
             (route) => false,
           );
         },

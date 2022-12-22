@@ -1,3 +1,4 @@
+import 'package:ec/common/widgets/button_bar.dart';
 import 'package:ec/features/auth/services/auth_service.dart';
 import 'package:ec/providers/user_provider.dart';
 import 'package:ec/router.dart';
@@ -9,6 +10,8 @@ import 'features/home/screen/home_screen.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
+    // ChangeNotifierProvider Widget 可向子孫暴露出
+    // ChangeNotifier(UserProvider)的實例
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
     )
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token!.isNotEmpty
-          ? const HomeScreen()
+          ? const BottomBar()
           : const AuthScreen(),
     );
   }
